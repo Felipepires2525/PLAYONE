@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>index.html</title>
+    <title>PLAYONE TV</title>
     <style>
         body { 
             font-family: 'Segoe UI', sans-serif; 
@@ -38,7 +38,6 @@
             box-sizing: border-box; 
             outline: none;
         }
-        input:focus { border-color: #ff0000; }
         button { 
             width: 100%; 
             padding: 18px; 
@@ -59,11 +58,11 @@
 
 <div class="login-box">
     <h1>PLAYONE</h1>
-    <input type="text" id="dns" placeholder="DNS (ex: http://servidor.com)" value="http://gfactivesrv.com">
+    <input type="text" id="dns" placeholder="DNS" value="http://gfactivesrv.com">
     <input type="text" id="user" placeholder="Usuário">
     <input type="password" id="pass" placeholder="Senha">
-    <button onclick="conectar()">ENTRAR NO PLAYER</button>
-    <div class="footer">Seu Player Web Seguro</div>
+    <button onclick="conectar()">ENTRAR AGORA</button>
+    <div class="footer">Sistema PLAYONE v2.0</div>
 </div>
 
 <script>
@@ -73,18 +72,19 @@
         const pass = document.getElementById('pass').value.trim();
 
         if(!dns || !user || !pass) {
-            alert("⚠️ Por favor, preencha todos os campos!");
+            alert("⚠️ Preencha todos os campos!");
             return;
         }
 
         if (dns.endsWith('/')) dns = dns.slice(0, -1);
 
-        // Montagem da lista M3U
+        // Link da lista M3U
         const m3uUrl = `${dns}/get.php?username=${user}&password=${pass}&type=m3u_plus&output=mpegts`;
         
-        // Redirecionamento para o Web Player
-        // Use este link que é mais seguro e está funcionando:
-        window.location.href = `https://player.iptveditor.com/index.html?url=${encodeURIComponent(m3uUrl)}`;
+        // Novo Player: Mais simples e compatível com Brave
+        const playerUrl = `https://m3u-player.vercel.app/?url=${encodeURIComponent(m3uUrl)}`;
+        
+        window.location.href = playerUrl;
     }
 </script>
 
