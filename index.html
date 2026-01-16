@@ -4,56 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PLAYONE TV</title>
-    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <style>
-        body { font-family: sans-serif; background: #000; color: #fff; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #000; 
+            color: #fff; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
         .container { width: 90%; max-width: 400px; text-align: center; }
-        .login-box { background: #111; padding: 25px; border-radius: 15px; border: 2px solid #f00; box-shadow: 0 0 15px rgba(255,0,0,0.3); }
-        h1 { color: #f00; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: #f00; border: none; border-radius: 8px; color: #fff; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        #video-container { display: none; width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: #000; z-index: 100; }
-        .video-js { width: 100% !important; height: 100% !important; }
-        .back-btn { position: absolute; top: 10px; left: 10px; z-index: 101; background: rgba(255,0,0,0.7); color: #fff; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
+        .login-box { 
+            background: #111; 
+            padding: 30px; 
+            border-radius: 15px; 
+            border: 2px solid #f00; 
+            box-shadow: 0 0 20px rgba(255,0,0,0.4); 
+        }
+        h1 { color: #f00; margin-bottom: 25px; font-size: 32px; letter-spacing: 2px; }
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 8px; 
+            border: 1px solid #333; 
+            background: #000; 
+            color: #fff; 
+            box-sizing: border-box; 
+            font-size: 16px;
+            outline: none;
+        }
+        input:focus { border-color: #f00; }
+        button { 
+            width: 100%; 
+            padding: 18px; 
+            background: #f00; 
+            border: none; 
+            border-radius: 8px; 
+            color: #fff; 
+            font-weight: bold; 
+            font-size: 18px; 
+            cursor: pointer; 
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        button:hover { background: #cc0000; }
+        .footer-link { margin-top: 20px; font-size: 11px; color: #555; }
     </style>
 </head>
 <body>
 
-    <div class="container" id="auth-screen">
+    <div class="container">
         <div class="login-box">
             <h1>PLAYONE</h1>
             <input type="text" id="user" placeholder="Usuário" value="RTFgBVX">
             <input type="password" id="pass" placeholder="Senha" value="kgketVyr">
             <button onclick="carregarLista()">ABRIR LISTA</button>
-            <p style="font-size: 10px; color: #555; margin-top: 15px;">Link: gfactivesrv.com</p>
+            <div class="footer-link">Servidor: gfactivesrv.com</div>
         </div>
     </div>
 
-    <div id="video-container">
-        <button class="back-btn" onclick="voltar()">⬅ Sair</button>
-        <video id="my-video" class="video-js vjs-default-skin" controls preload="auto">
-            <p class="vjs-no-js">Para ver este vídeo, habilite o JavaScript.</p>
-        </video>
-    </div>
-
-    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script>
         function carregarLista() {
-    const user = document.getElementById('user').value;
-    const pass = document.getElementById('pass').value;
-    if(!user || !pass) return alert("Preencha tudo!");
+            const user = document.getElementById('user').value;
+            const pass = document.getElementById('pass').value;
+            
+            if(!user || !pass) {
+                alert("Por favor, preencha o usuário e a senha!");
+                return;
+            }
 
-    // Link M3U direto do seu servidor
-    const m3uUrl = `http://gfactivesrv.com/get.php?username=${user}&password=${pass}&type=m3u_plus&output=mpegts`;
-    
-    // NOVO PLAYER: Link direto que o Brave aceita sem erro de certificado
-    window.location.href = `https://m3u-player.com/?url=${encodeURIComponent(streamUrl)}`;
-}
-        }
-
-        function voltar() {
-            document.getElementById('video-container').style.display = 'none';
-            document.getElementById('auth-screen').style.display = 'block';
+            // Seu link M3U formatado corretamente
+            const m3uUrl = `http://gfactivesrv.com/get.php?username=${user}&password=${pass}&type=m3u_plus&output=mpegts`;
+            
+            // Redirecionamento para um player estável que aceita links HTTP
+            // Isso evita o erro de DNS e o erro 504 de Gateway da Vercel
+            window.location.href = `https://m3u-player.com/?url=${encodeURIComponent(m3uUrl)}`;
         }
     </script>
 </body>
