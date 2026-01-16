@@ -39,16 +39,16 @@
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script>
         function carregarLista() {
-            const user = document.getElementById('user').value;
-            const pass = document.getElementById('pass').value;
-            if(!user || !pass) return alert("Preencha tudo!");
+    const user = document.getElementById('user').value;
+    const pass = document.getElementById('pass').value;
+    if(!user || !pass) return alert("Preencha tudo!");
 
-            // Formato de link M3U que você forneceu
-            const streamUrl = `http://gfactivesrv.com/get.php?username=${user}&password=${pass}&type=m3u_plus&output=mpegts`;
-            
-            // Tenta abrir o player interno ou envia para um player que aceita links HTTP puros
-            // Como navegadores bloqueiam HTTP dentro de HTTPS, a melhor forma é abrir via intent no Android ou um player externo de confiança:
-            window.location.href = `https://m3uplayer.org/?url=${encodeURIComponent(m3uUrl)}`;
+    // Link M3U direto do seu servidor
+    const m3uUrl = `http://gfactivesrv.com/get.php?username=${user}&password=${pass}&type=m3u_plus&output=mpegts`;
+    
+    // NOVO PLAYER: Link direto que o Brave aceita sem erro de certificado
+    window.location.href = `https://m3u-player.com/?url=${encodeURIComponent(m3uUrl)}`;
+}
         }
 
         function voltar() {
