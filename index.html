@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PLAYONE TV</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: #050505; 
+            color: white; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+        .login-box { 
+            background: #121212; 
+            padding: 30px; 
+            border-radius: 15px; 
+            border: 2px solid #ff0000; 
+            width: 85%; 
+            max-width: 380px; 
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+        h1 { color: #ff0000; margin-bottom: 25px; font-size: 28px; letter-spacing: 2px; }
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 8px; 
+            border: 1px solid #333; 
+            background: #000; 
+            color: white; 
+            font-size: 16px; 
+            box-sizing: border-box; 
+            outline: none;
+        }
+        input:focus { border-color: #ff0000; }
+        button { 
+            width: 100%; 
+            padding: 18px; 
+            background: #ff0000; 
+            border: none; 
+            border-radius: 8px; 
+            color: white; 
+            font-weight: bold; 
+            font-size: 18px; 
+            cursor: pointer; 
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+        .footer { margin-top: 20px; color: #555; font-size: 11px; }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <h1>PLAYONE</h1>
+    <input type="text" id="dns" placeholder="DNS (ex: http://servidor.com)" value="http://gfactivesrv.com">
+    <input type="text" id="user" placeholder="Usuário">
+    <input type="password" id="pass" placeholder="Senha">
+    <button onclick="conectar()">ENTRAR NO PLAYER</button>
+    <div class="footer">Seu Player Web Seguro</div>
+</div>
+
+<script>
+    function conectar() {
+        let dns = document.getElementById('dns').value.trim();
+        const user = document.getElementById('user').value.trim();
+        const pass = document.getElementById('pass').value.trim();
+
+        if(!dns || !user || !pass) {
+            alert("⚠️ Por favor, preencha todos os campos!");
+            return;
+        }
+
+        if (dns.endsWith('/')) dns = dns.slice(0, -1);
+
+        // Montagem da lista M3U
+        const m3uUrl = `${dns}/get.php?username=${user}&password=${pass}&type=m3u_plus&output=mpegts`;
+        
+        // Redirecionamento para o Web Player
+        window.location.href = `https://metaplayer.app/webplayer/?url=${encodeURIComponent(m3uUrl)}`;
+    }
+</script>
+
+</body>
+</html>
