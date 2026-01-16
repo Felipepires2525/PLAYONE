@@ -48,7 +48,7 @@
             
             // Tenta abrir o player interno ou envia para um player que aceita links HTTP puros
             // Como navegadores bloqueiam HTTP dentro de HTTPS, a melhor forma é abrir via intent no Android ou um player externo de confiança:
-            window.location.href = `https://m3uplayer.org/?url=${encodeURIComponent(streamUrl)}`;
+            window.location.href = `https://m3uplayer.org/?url=${encodeURIComponent(m3uUrl)}`;
         }
 
         function voltar() {
